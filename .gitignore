@@ -1,0 +1,1 @@
+-e "*.class\n.settings/\n.classpath\n.project\nbin/" 
