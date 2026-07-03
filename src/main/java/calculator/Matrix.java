@@ -1,6 +1,11 @@
 package calculator;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -123,12 +128,6 @@ public class Matrix {
 	}
 	
 	public static void main(String[] args) {
-		
-		double[][] testArr = { {1,2}, {3, 4}, {5, 6} };
-		Matrix test = new Matrix(testArr);
-		
-		System.out.println(test);
-		
 		
 		
 	}

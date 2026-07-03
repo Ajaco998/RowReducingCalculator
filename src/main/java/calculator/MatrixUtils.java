@@ -52,6 +52,22 @@ public class MatrixUtils {
 		m.setRow(rowX, rowXIndex);
 	}
 	
+	/**
+	 * Method to row reduce a matrix to RREF form
+	 * @param m
+	 * @return
+	 */
+	public static Matrix rowReduce(Matrix m) {
+		// TODO: Figure out algorithm for row reduction and implement it
+		// Note: Figure out if this should be a void method or return the matrix
+		
+		double[][] A = m.getMatrix();
+		
+		// Step 1: Determine leftmost non-zero column
+
+		return null;
+	}
+	
 	public static String colVecToString(double[] colVec) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("{\n");
