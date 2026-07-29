@@ -96,10 +96,10 @@ public class Calculator {
 					case "a": // Add Rows
 						System.out.println("Row X = X + Y");
 						System.out.println("Please enter row X: ");
-						rowX = s.nextInt();
+						rowX = s.nextInt() - 1; // Adjusted for user input
 						
 						System.out.println("Please enter row Y: ");
-						rowY = s.nextInt();
+						rowY = s.nextInt() - 1; // Adjusted for user input
 						
 						System.out.println("Original: \n" + A.toString());
 						MatrixUtils.addRows(A, rowX, rowY);
@@ -108,7 +108,7 @@ public class Calculator {
 						break;
 					case "b": // Scale Row
 						System.out.println("Please enter a row: ");
-						int rowToBeScaled = s.nextInt();
+						int rowToBeScaled = s.nextInt() - 1; // Adjusted for user input
 						
 						System.out.println("Please enter a scalar: ");
 						int scalar = s.nextInt();
@@ -121,10 +121,10 @@ public class Calculator {
 					case "c": // Swap Rows
 						System.out.println("Row X -> Y, Y -> X");
 						System.out.println("Please enter row X: ");
-						rowX = s.nextInt();
+						rowX = s.nextInt() - 1; // Adjusted for user input
 						
 						System.out.println("Please enter row Y: ");
-						rowY = s.nextInt();
+						rowY = s.nextInt() - 1; // Adjusted for user input
 						
 						System.out.println("Original: \n" + A.toString());
 						MatrixUtils.swapRows(A, rowX, rowY);
@@ -139,6 +139,11 @@ public class Calculator {
 						break;
 					case "f": // Exit Manual Mode
 						manualMode = false;
+						System.out.println("Leaving manual mode...");
+						System.out.println("\nCalculator Options\n"
+								+ "----------------------------"
+								+ "\nPick a number:\n");
+						CalculatorUtils.printCalcOptions();
 						break;
 					default:
 						System.out.println("Please enter a valid letter.");
