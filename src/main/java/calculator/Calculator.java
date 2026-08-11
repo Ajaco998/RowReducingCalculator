@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class Calculator {
 	
 	public static final String PROGRAM_NAME = "Row Reducing Calculator";
-	public static final String PROGRAM_VERSION = "1.0.0";
+	public static final String PROGRAM_VERSION = "1.0.1";
 	
 	public static void main(String[] args) {
 		
@@ -21,8 +21,6 @@ public class Calculator {
 		
 		/**
 		 * Current Plan:
-		 *  - Start working on the algorithm to row reduce automatically
-		 *  	> Research the math behind it, try to implement it without looking at pseudo code
 		 *  - Implement methods to reset the matrix
 		 *  	> Possibly implement a system to store matrices (?)
 		 * 	
@@ -155,7 +153,7 @@ public class Calculator {
 			case 4:
 				// Print column vector
 				System.out.println("Please enter a column: ");
-				int colVecIndex = s.nextInt();
+				int colVecIndex = s.nextInt() - 1; // Adjusted for user input
 				s.nextLine();
 				MatrixUtils.printColVec(A, colVecIndex);
 				break;

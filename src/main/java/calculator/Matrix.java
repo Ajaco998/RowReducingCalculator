@@ -140,9 +140,4 @@ public class Matrix {
 		return cols == other.cols && Arrays.deepEquals(matrix, other.matrix) && rows == other.rows;
 	}
 	
-	public static void main(String[] args) {
-		
-		
-	}
-
 }
