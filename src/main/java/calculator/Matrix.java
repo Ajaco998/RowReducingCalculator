@@ -91,14 +91,32 @@ public class Matrix {
 		return colVec;
 	}
 
+//	@Override
+//	public String toString() {
+//		String out = "{ \n";
+//		for(double[] row : this.matrix) {
+//			out += Arrays.toString(row) + "\n";
+//		}
+//		out += "}";
+//		return out;
+//	}
+	
 	@Override
 	public String toString() {
-		String out = "{ \n";
-		for(double[] row : this.matrix) {
-			out += Arrays.toString(row) + "\n";
+		StringBuilder sb = new StringBuilder();
+		for(int i = 0; i < this.rows; i++) {
+			sb.append("[ ");
+			for(int j = 0; j < this.cols; j++) {
+				sb.append(String.format("%7.2f", this.matrix[i][j]));
+				
+				if(j < this.rows - 1) {
+					sb.append(", ");
+				}
+			}
+			sb.append("]\n");
 		}
-		out += "}";
-		return out;
+		
+		return sb.toString();
 	}
 	
 	@Override

@@ -68,6 +68,8 @@ public class Calculator {
 				System.out.print("Starting Matrix:\n" + A.toString() + "\n");
 				A = MatrixUtils.rowReduce(A);
 				System.out.print("RREF Matrix: \n" + A.toString() + "\n");
+				
+				//TODO: handle what do after the RREF matrix is printed.
 				break;
 			case 3:
 				// Manual Mode
@@ -80,8 +82,6 @@ public class Calculator {
 				//  d. Print matrix
 				//  e. Print Manual Mode menu
 				//  f. Exit Manual Mode
-				// TODO: Switch cases from strings to numbers, either by 
-				//		 converting or switching to numbers instead of letters
 				boolean manualMode = true;
 				while(manualMode) {
 					int rowX, rowY;
