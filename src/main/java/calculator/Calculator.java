@@ -65,7 +65,9 @@ public class Calculator {
 				break;
 			case 2:
 				// Row Reduce Matrix
-				// TODO: Need to figure out algorithm
+				System.out.print("Starting Matrix:\n" + A.toString() + "\n");
+				A = MatrixUtils.rowReduce(A);
+				System.out.print("RREF Matrix: \n" + A.toString() + "\n");
 				break;
 			case 3:
 				// Manual Mode

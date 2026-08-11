@@ -26,7 +26,7 @@ public class MatrixUtils {
 	 * @param matrix
 	 * @param scalar
 	 */
-	public static void scaleRow(Matrix m, int row, int scalar) {
+	public static void scaleRow(Matrix m, int row, double scalar) {
 		double[] scaledRow = m.getRow(row);
 		for (int i = 0; i < m.getRow(row).length; i++) {
 			scaledRow[i] *= scalar;
@@ -37,11 +37,13 @@ public class MatrixUtils {
 	/**
 	 * Method to add one row to another, can accept scalars
 	 * 
-	 * @param matrix
-	 * @param rowX   (Row to be added to)
-	 * @param rowY   (Row that is added)
+	 * @param m         (the Matrix)
+	 * @param rowXIndex (Row to be added to)
+	 * @param rowYIndex (Row that is added)
+	 * @param xScalar   (scalar that gets applied to the x row)
+	 * @param yScalar   (scalar that gets applied to the y row)
 	 */
-	public static void addRows(Matrix m, int rowXIndex, int rowYIndex, int xScalar, int yScalar) {
+	public static void addRows(Matrix m, int rowXIndex, int rowYIndex, double xScalar, double yScalar) {
 		double[] rowX = m.getRow(rowXIndex);
 		double[] rowY = m.getRow(rowYIndex);
 
@@ -49,21 +51,10 @@ public class MatrixUtils {
 			throw new RuntimeException("Rows cannot be of different lengths");
 		}
 
-		if (xScalar != 1) {
-			for (int i = 0; i < rowX.length; i++) {
-				rowX[i] *= xScalar;
-			}
-		}
-
-		if (yScalar != 1) {
-			for (int i = 0; i < rowY.length; i++) {
-				rowY[i] *= yScalar;
-			}
-		}
-
 		for (int i = 0; i < rowX.length; i++) {
-			rowX[i] += rowY[i];
+			rowX[i] = (rowX[i] * xScalar) + (rowY[i] * yScalar);
 		}
+
 		m.setRow(rowX, rowXIndex);
 	}
 
@@ -75,7 +66,7 @@ public class MatrixUtils {
 	 * @param xScalar
 	 * @param rowYIndex
 	 */
-	public static void addRowsXScalar(Matrix m, int rowXIndex, int rowYIndex, int xScalar) {
+	public static void addRowsXScalar(Matrix m, int rowXIndex, int rowYIndex, double xScalar) {
 		addRows(m, rowXIndex, rowYIndex, xScalar, 1);
 	}
 
@@ -87,7 +78,7 @@ public class MatrixUtils {
 	 * @param rowYIndex
 	 * @param yScalar
 	 */
-	public static void addRowsYScalar(Matrix m, int rowXIndex, int rowYIndex, int yScalar) {
+	public static void addRowsYScalar(Matrix m, int rowXIndex, int rowYIndex, double yScalar) {
 		addRows(m, rowXIndex, rowYIndex, 1, yScalar);
 	}
 
@@ -106,18 +97,51 @@ public class MatrixUtils {
 	/**
 	 * Method to row reduce a matrix to RREF form
 	 * 
-	 * @param m
-	 * @return
+	 * @param mat
+	 * @return mat (in RREF)
 	 */
-	public static Matrix rowReduce(Matrix m) {
-		// TODO: Figure out algorithm for row reduction and implement it
-		// Note: Figure out if this should be a void method or return the matrix
+	public static Matrix rowReduce(Matrix mat) {
+		int m = mat.getNumRows();
+		int n = mat.getNumCols();
+		
+		double epsilon = 1e-10;
 
-		double[][] A = m.getMatrix();
+		int targetRow = 0;
 
-		// Step 1: Determine leftmost non-zero column
+		for (int col = 0; col < n; col++) { // Iterate through all of the columns
+			double maxMagnitude = -1;
+			int p = targetRow; // 'p' stores the best row, i.e., the best pivot row
+			for (int i = targetRow; i < m; i++) { // Search downwards
+				if (Math.abs(mat.getMatrix()[i][col]) > maxMagnitude) {
+					maxMagnitude = Math.abs(mat.getMatrix()[i][col]);
+					p = i;
+				}
+			}
+			if (Math.abs(mat.getMatrix()[p][col]) < epsilon) {
+				continue;
+			}
 
-		return null;
+			if (p != targetRow) {
+				swapRows(mat, p, targetRow);
+			}
+
+			double pivotValue = mat.getMatrix()[targetRow][col];
+			scaleRow(mat, targetRow, 1.0 / pivotValue);
+
+			for (int row = 0; row < m; row++) {
+				if (row != targetRow) {
+					double entryToEliminate = mat.getMatrix()[row][col];
+					addRowsYScalar(mat, row, targetRow, -entryToEliminate);
+				}
+			}
+			targetRow++;
+			if (targetRow >= m) {
+				break;
+			}
+
+		}
+
+		return mat;
 	}
 
 	public static String colVecToString(double[] colVec) {
